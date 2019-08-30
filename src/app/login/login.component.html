@@ -1,0 +1,38 @@
+<img src="../assets/images/background.jpg" id="bg" alt="">
+<div >
+    <mdb-card class="logindiv">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <img src="../assets/images/login.webp" alt="IMG" style="margin-top:30px;">
+                </div>
+                <div class="col-sm">
+                    <form [formGroup]="loginForm" style="margin-top: 20%;">
+                        <div class="md-form">
+                            <i class="fas fa-envelope prefix"></i>
+                            <input mdbInput mdbValidate formControlName="emailFormEx" minLength="8" maxLength="25" type="email"
+                                    class="form-control" id="form9">
+                            <label for="form9">Type your e-mail</label>
+                            <mdb-error *ngIf="emailFormEx.invalid && (emailFormEx.dirty || emailFormEx.touched)">Input invalid</mdb-error>
+                            <mdb-success *ngIf="emailFormEx.valid && (emailFormEx.dirty || emailFormEx.touched)">Input valid</mdb-success>
+                        </div>
+                        
+                        <div class="md-form">
+                            <i class="fas fa-lock prefix"></i>
+                            <input mdbInput mdbValidate formControlName="passwordFormEx" minLength="10" maxLength="25" type="password"
+                                    class="form-control" id="form10">
+                            <label for="form10">Type your password</label>
+                            <mdb-error *ngIf="passwordFormEx.invalid && (passwordFormEx.dirty || passwordFormEx.touched)">Input invalid
+                            </mdb-error>
+                            <mdb-success *ngIf="passwordFormEx.valid && (passwordFormEx.dirty || passwordFormEx.touched)">Input valid
+                            </mdb-success>
+                        </div>
+
+                        <button mdbBtn block="true" class="z-depth-0 my-4 waves-effect" style="border-radius: 20px; color: white; background-color: rgb(44, 40, 40)"
+                                mdbWavesEffect type="submit" [disabled]="disabledSubmitButton">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </mdb-card>
+</div>

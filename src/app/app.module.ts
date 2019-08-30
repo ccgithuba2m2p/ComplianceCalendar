@@ -3,14 +3,27 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { LoginComponent } from './login/login.component';
+import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavMenuComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    MDBBootstrapModule.forRoot(),
+    RouterModule.forRoot([
+      { path: '', component: LoginComponent, pathMatch: 'full' },
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]
