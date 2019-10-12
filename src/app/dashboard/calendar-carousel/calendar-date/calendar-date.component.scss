@@ -1,0 +1,16 @@
+.weekday{
+    color: rgb(126, 123, 123);
+    font-size: 10px;
+}
+
+.have-event{
+    border:2px solid rgb(12, 160, 98);;
+    border-radius:50%;
+    -moz-border-radius:50%;
+    -webkit-border-radius:50%;
+    &:hover {
+        cursor: pointer;
+        background-color: rgb(12, 160, 98);
+        color: white;
+    }
+}

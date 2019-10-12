@@ -1,1 +1,202 @@
-/* You can add global styles to this file, and also import other style files */
+.themecolor{
+    color: rgb(112, 31, 206);
+}
+
+.themebackgroundcolor{
+    background-color: rgb(112, 31, 206);
+}
+
+.margin40{
+    margin: 40px;
+}
+
+.margin0{
+    margin: 0px !important;
+}
+
+.margintop40{
+    margin-top: 40px;
+}
+
+.margintop20{
+    margin-top: 20px;
+}
+
+.marginbottom20{
+    margin-bottom: 20px;
+}
+
+.marginleft0{
+    margin-left: 0px;
+}
+
+.marginleft81{
+    margin-left: 81px;
+}
+
+.marginright5{
+    margin-right:5px;
+}
+
+.marginright0{
+    margin-right: 0px;
+}
+
+.marginright10{
+    margin-right:10px;
+}
+
+.marginleft5{
+    margin-left:5px;
+}
+
+.marginleft10{
+    margin-left: 10px;
+}
+
+.marginleft1p{
+    margin-left:1%;
+}
+
+.marginleft15{
+    margin-left: 15px;
+}
+
+.marginleft45p{
+    margin-left: 45%;
+}
+
+.marginleft48p{
+    margin-left: 48%;
+}
+
+.marginleft38p{
+    margin-left: 38%;
+}
+
+.marginleftauto{
+    margin-left:auto;
+}
+
+.margintop5{
+    margin-top:5px;
+}
+
+.margintop20{
+    margin-top:20px;
+}
+
+.marginbottom5{
+    margin-bottom: 5px;
+}
+
+.marginbottom0{
+    margin-bottom: 0px !important;
+}
+
+.float-right{
+    float : right !important;
+}
+
+.float-left{
+    float : left !important;
+}
+
+.position-relative{
+    position: relative;
+}
+
+.hide{
+    display: none;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.height100p{
+    height: 100%;
+}
+
+.width15{
+    width : 15px;
+}
+
+.width90p{
+    width : 90%;
+}
+
+.width100p{
+    width: 100% !important;
+}
+
+.width30{
+    width : 30px;
+}
+
+.width25{
+    width : 25px;
+}
+
+.paddingtop8{
+    padding-top:8px;
+}
+
+
+.paddingtop10{
+    padding-top:10px;
+}
+
+.paddingtop65p{
+    padding-top:65%;
+}
+
+.padding0{
+    padding: 0px !important;
+}
+
+.padding20{
+    padding: 20px;
+}
+
+.paddingright10{
+    padding-right: 10px;
+}
+
+.paddingleft10{
+    padding-left: 10px;
+}
+
+.paddingleft20{
+    padding-left: 20px;
+}
+
+.paddingleft3{
+    padding-left: 3px;
+}
+
+.paddingright3{
+    padding-right: 3px;
+}
+
+.hover{
+    &:hover{
+        background: rgb(112, 31, 206);
+        cursor: pointer;
+        color: white;
+    }
+}
+
+.font-size25{
+    font-size: 25px;
+}
+
+.whitefont{
+    color : white !important;
+}
+
+.max-width100p{
+    max-width: 100% !important;
+}
+  
+  

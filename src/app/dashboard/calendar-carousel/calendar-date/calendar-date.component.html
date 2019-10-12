@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="row">
+        <div class="paddingleft3 paddingright3 text-center weekday">
+            {{weekdays[date.day()]}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="paddingleft3 paddingright3 text-center" [ngClass]='{"have-event" : complianceDateList.includes(date.format("YYYY/MM/DD"))}' placement="down" [mdbPopover] = "popTemplate" triggers = 'hover'>
+            {{date.date()}}
+        </div>
+    </div>
+</div>
+
+<ng-template #popTemplate class="themebackgroundcolor">
+    <app-calendar-date-popup [date] = "date"></app-calendar-date-popup>
+</ng-template>

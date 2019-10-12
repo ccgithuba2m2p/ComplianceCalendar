@@ -1,0 +1,87 @@
+@media all and (min-width: 768px) {
+    tr  {
+      td {
+        vertical-align: middle !important;
+      }
+      span {
+        &:not([class]) {
+          padding: 1rem 1rem;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    #table {
+      max-width: 300px;
+    }
+    .button{
+      display: none !important;
+    }
+    .actions{
+      display: none !important;
+    }
+    .action-header{
+      display: none !important;
+    }
+}
+
+span{
+  max-width: 200px;
+  word-wrap: break-word;
+  text-align: center;
+  border: 0px white solid !important;
+}
+
+.searchbox{
+  background-color: white !important;
+  width: 200px;
+  padding-left: 10px;
+  border: 1px solid lightgray !important; 
+  position: absolute;
+}
+
+.button{
+  height: 40px;
+  margin-top: 0px;
+}
+
+#addNewButton{
+  margin-left: 230px; 
+}
+
+#addBulkButton{
+  margin-left: 30px;
+}
+
+#exportButton{
+  margin-left: 30px;
+}
+
+.actions{
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+.input {
+  background-color: white !important;
+  width: 200px;
+  height: 33px;
+  padding-left: 10px;
+  border: 1px solid lightgray !important;
+}
+
+.date{
+  background-color: white !important;
+  width: 200px;
+  padding-left: 10px;
+  border: 1px solid lightgray !important;
+}
+
+.input{
+  &:focus {
+  border: 3px solid #555;
+  }
+}
+

@@ -1,0 +1,58 @@
+i {
+    border: solid white;
+    border-width: 0 4px 4px 0;
+    display: inline-block;
+    padding: 4px;
+    
+  }
+
+  // i:hover{
+  //   border: solid rgb(75, 73, 73);
+  //   border-width: 0 9px 9px 0;
+  //   display: inline-block;
+  //   padding: 20px;
+  // }
+  
+  .right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+  }
+  
+  .left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    margin-left: 20px;
+  }
+
+  .up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+  }
+  
+  .down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+  }
+
+  .minimize{
+    font-size: 50px;
+    position: absolute;
+    color: black;
+    width: 50px;
+    text-align: center;
+    background: #0ca062;
+    color:white;
+    
+    &:hover{
+      cursor: pointer;
+    }
+  }
+
+  .smallcalendarslider{
+    width:100% !important;
+    max-width: 100% !important;
+    margin-left:0px;
+    margin-top: 20px;
+  }
+  
+  

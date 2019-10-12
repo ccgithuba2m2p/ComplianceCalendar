@@ -1,0 +1,120 @@
+.calendar {
+  display: block;
+  width: 210px;
+  margin: 0 auto;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  .calendar-navs-current {
+    background-color: blue;
+    color: white !important;
+  }
+
+  .calendar-navs-next-previous {
+    background-color: rgb(12, 160, 98);
+    color: white !important;
+  }
+
+  .month-nav {
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .year-nav {
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-family: 'Montserrat';
+  }
+
+  .month-grid {
+    .day-names {
+      display: flex;
+      flex-direction: row;
+      background: #fff;
+      border-bottom-right-radius: 3px;
+      border-bottom-left-radius: 3px;
+    }
+    .weeks {
+      display: flex;
+      flex-direction: column;
+    }
+    .week {
+      display: flex;
+      flex-direction: row;
+    }
+    .week-date,
+    .day-name {
+      text-align: center;
+      padding: 5px;
+      display: block;
+      width: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .week-date {
+      height: 25px;
+      position: relative;
+
+      .date-text {
+        z-index: 10;
+        font-size: 15px;
+        font-family: 'Montserrat', sans-serif;
+        outline-color: black;
+      }
+
+      .date-text:hover{
+        color: white;
+      }
+
+      &::after {
+        content: '';
+        height: 27px;
+        width: 27px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        transition: background-color 150ms linear, color 150ms linear;
+        z-index: 1;
+      }
+
+      &.enabled {
+        cursor: pointer;
+        &:hover {
+          &:after {
+            background-color: rgb(12, 160, 98);
+          }
+        }
+      }
+      &.selected {
+        border:2px solid rgb(12, 160, 98);;
+        border-radius:50%;
+        -moz-border-radius:50%;
+        -webkit-border-radius:50%;
+        &:hover {
+          &:after {
+            background-color: rgb(12, 160, 98);
+          }
+        }
+      }
+
+      &.disabled {
+        color: #888;
+      }
+    }
+
+    .today {
+      font-weight: bold;
+    }
+  }
+} 
+

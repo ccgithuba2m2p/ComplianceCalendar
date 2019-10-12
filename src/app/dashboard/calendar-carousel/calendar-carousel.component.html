@@ -1,0 +1,72 @@
+<div *ngIf = "!largeCalendar">
+  <div class="container smallcalendarslider">
+    <div class="row">
+      <mdb-card class="width100p padding0">
+        <div class="container width100p max-width100p padding0">
+          <div class="row width100p max-width100p marginleft0 padding0">
+            <div>
+              <div id="leftArrowSmallCalendar" class="height100p width30 paddingtop65p text-center hover" (click) = 'previousDatesSmallCalendar(middleDate)'>
+                <mdb-icon fas icon="caret-left"></mdb-icon>
+              </div>
+            </div>
+            <div class="col padding0">
+              <mdb-card class="width100p padding0">
+                <div class="container max-width100p width100p padding0">
+                  <div class="row max-width100p width100p padding0 marginleft0">
+                    <div class="marginleft38p">
+                      <span>{{middleDate.format('MMMM')}} {{middleDate.format('YYYY')}}</span>
+                    </div>
+                  </div>
+                  <div class="row max-width100p width100p padding0 marginleft0">
+                    <div *ngFor = "let date of dates" class="marginleftauto">
+                      <app-calendar-date [date] = "date"></app-calendar-date>
+                    </div>
+                  </div>
+                </div>
+              </mdb-card>
+            </div>
+            <div>
+              <div id="rightArrowSmallCalendar" class="height100p width30 paddingtop65p text-center hover" (click) = 'nextDatesSmallCalendar(middleDate)'>
+                <mdb-icon fas icon="caret-right"></mdb-icon>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mdb-card>
+    </div>
+    <div class="row">
+      <div class="themebackgroundcolor text-center width25 hover marginleft48p whitefont" (click) = 'showLargeCalendar()'>
+        <mdb-icon fas icon="caret-down"></mdb-icon>
+      </div>
+    </div>
+  </div>  
+</div>
+
+<div class="float-left marginright5" *ngIf = "largeCalendar">
+  <mdb-card>
+    <div class="container">
+      <div class="row">
+        <div class="width100p text-center">
+          <i class="fa fa-times float-right hover" aria-hidden="true" (click)='closeLargeCalendar()'></i>
+          <div class="margintop20 font-size25">
+            <span >Complaince Calendar</span>
+          </div>
+        </div>        
+      </div>
+      <div class="row padding20">
+        <div class="col col-md-auto">
+          <app-dashboard-calendar [currentDate] = 'prevMonth' [weeks] = 'prevMonthWeeks'></app-dashboard-calendar>
+        </div>
+        <div class="col col-md-auto">
+          <app-dashboard-calendar [currentDate] = 'currentMonth' [weeks] = 'currentMonthWeeks'></app-dashboard-calendar>
+        </div>
+        <div class="col col-md-auto">
+          <app-dashboard-calendar [currentDate] = 'nextMonth' [weeks] = 'nextMonthWeeks'></app-dashboard-calendar>
+        </div>
+      </div>
+    </div>  
+  </mdb-card>
+</div>
+
+
+

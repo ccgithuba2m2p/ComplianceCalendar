@@ -1,0 +1,277 @@
+<!-- Editable table -->
+<div class="card">
+    <h3 class="card-header" style="height: 60px;">
+      <div class="margin0" style="height: fit-content; ">
+        <input type="text" [(ngModel)]="searchText" placeholder ="Search" class="form-control searchbox" id="search" mdbInput>
+        <button id="addNewButton" mdbBtn type="button" class="themebackgroundcolor whitefont button" data-toggle="modal" data-target="#addnew"
+        (click)="addnew.show()" mdbWavesEffect>
+          <mdb-icon fas icon="plus" class="mr-1"></mdb-icon>Add New
+        </button>
+        <!-- <button id="addBulkButton" mdbBtn type="button" class="themebackgroundcolor whitefont button" data-toggle="modal" data-target="#bulkAddModal"
+        (click)="bulkAddModal.show()" mdbWavesEffect>
+          <mdb-icon fas icon="plus" class="mr-1"></mdb-icon>Bulk Add
+        </button> -->
+        <button id="exportButton" mdbBtn type="button" class="themebackgroundcolor whitefont button" mdbWavesEffect>
+          <mdb-icon fas icon="file-export" class="mr-1"></mdb-icon>Export
+        </button>
+      </div>
+    </h3>
+    
+    <div class="card-body">
+      <div id="table" class="table-editable">
+        <mdb-card>
+          <table mdbTable #tableCompliance="mdbTable" class="table table-bordered table-responsive-md text-center">
+            <tr class="themebackgroundcolor whitefont">
+              <th class="text-center">Company</th>
+              <th class="text-center">Department</th>
+              <th class="text-center">Compliance</th>
+              <th class="text-center">Due Date</th>
+              <th class="text-center">Act</th>
+              <th class="text-center">Section</th>
+              <th class="text-center">Form</th>
+              <th class="text-center action-header">Actions</th>
+            </tr>
+            <tbody>
+              <tr *ngFor="let compliance of complianceList; let i = index">
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" style="max-width: 120px;">
+                  <span>{{compliance['company']}}</span>
+                </td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" style="max-width: 100px;">
+                  <span>{{compliance['department']}}</span>
+                </td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" style="max-width: 200px;">
+                  <span>{{compliance['name']}}</span>
+                </td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" style="max-width: 135px;">
+                  <span>{{compliance['dueDate']}}</span>
+                </td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" style="max-width: 120px;">
+                  <span>{{compliance['act']}}</span>
+                </td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" style="max-width: 120px;">
+                  <span>{{compliance['section']}}</span>
+                </td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" style="max-width: 120px;">
+                  <span>{{compliance['formName']}}</span>
+                </td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                  <span class="table-remove">
+                    <mdb-icon class="actions marginright10" fas icon="edit" mdbTooltip="edit" placement="top" (click)='[editModal.show(), initializeEditObject(compliance)]'></mdb-icon>
+                    <mdb-icon class="actions marginright10" fas icon="check" mdbTooltip="mark it as complete" placement="top"></mdb-icon>
+                    <mdb-icon class="actions" far icon="trash-alt" mdbTooltip="delete" placement="top" (click)="[deleteModal.show(), setIdForDelete(compliance['id'])]"></mdb-icon>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot class="grey lighten-5 w-100">
+              <tr>
+                <td colspan="8">
+                  <mdb-table-pagination [tableEl]="tableCompliance" [searchDataSource]="complianceList"></mdb-table-pagination>
+                </td>
+              </tr>
+              </tfoot>
+          </table>
+        </mdb-card>
+        
+      </div>
+    </div>
+  </div>
+  <!-- Editable table -->
+
+<div mdbModal #addnew="mdbModal" class="modal fade left" id="frameModalTop" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true" style="height: 100%; overflow-y: auto;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Add New Compliance</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="addnew.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-4">
+          <table>
+            <tr>
+              <td>
+                <b class="marginleft10">*Company Name: </b><br/>
+                <input type="text" id="companyName" placeholder='Company Name' [formControl]="addNewCompanyName" class="form-control input"
+                 mdbInput mdbValidate>
+              </td>
+              <td class="paddingleft20">
+                <b class="marginleft10">*Department: </b> <br/>
+                <input type="text" id="department" placeholder='Department' [formControl]="addNewDepartment" class="form-control input"
+                 mdbInput mdbValidate>
+              </td>
+            </tr>
+            <tr>
+              <td class="paddingtop10">
+                <b class="marginleft10">*Compliance Name: </b><br/>
+                <input type="text" id="name" placeholder='Compliance Name' [formControl]="addNewName" class="form-control input"
+                 mdbInput mdbValidate>
+              </td>
+              <td class="paddingleft20 paddingtop10">
+                <b class="marginleft10">*Due Date: </b> <br/>
+                <ejs-datepicker placeholder='Due Date' [formControl]="addNewDueDate" class="form-control date" id="dueDate" [min]='minDate' [max]='maxDate' format ='yyyy/MM/dd' mdbInput mdbValidate (focusout)='checkFormValid()'></ejs-datepicker>
+              </td>
+            </tr>
+            <tr>
+              <td class="paddingtop10">
+                <b class="marginleft10">*Act: </b><br/>
+                <input type="text" id="act" placeholder='Act' [formControl]="addNewAct" class="form-control input"
+                 mdbInput mdbValidate>
+              </td>
+              <td class="paddingleft20 paddingtop10">
+                <b class="marginleft10">*Section: </b> <br/>
+                <input type="text" id="section" placeholder='Section' [formControl]="addNewSection" class="form-control input"
+                 mdbInput mdbValidate>
+              </td>
+            </tr>
+            <tr>
+              <td class="paddingtop10">
+                <b class="marginleft10">*Form Name: </b><br/>
+                <input type="text" id="formName" placeholder='Form Name' [formControl]="addNewFormName" class="form-control input"
+                  mdbInput mdbValidate>
+              </td>
+              <td class="paddingleft20 paddingtop10">
+                <b class="marginleft10">*Frequency: </b> <br/>
+                <input type="text" id="frequency" placeholder='Frequency' [formControl]="addNewFrequency" class="form-control input"
+                  mdbInput mdbValidate>
+              </td>
+            </tr>
+          </table>
+        </div>        
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button mdbBtn class="waves-light themebackgroundcolor whitefont" [disabled]="disabledAddButton" (click)='[addNewCompliance(), addnew.hide()]'  mdbWavesEffect>ADD</button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<div mdbModal #editModal="mdbModal" class="modal fade left" id="frameModalTop" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true" style="height: 100%; overflow-y: auto;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Edit Compliance</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="editModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-4">
+          <input type="text" id="companyName" [value]="editComplianceObject['company']" [formControl]="editCompanyName" class="form-control"
+          (focusout)="editComplianceObject['company'] = editForm.get('editCompanyName').value === '' ? editComplianceObject['company'] : editForm.get('editCompanyName').value"              
+            mdbInput mdbValidate>
+          <mdb-error
+            *ngIf="editCompanyName.invalid">
+            Input invalid
+          </mdb-error>
+          <mdb-success
+            *ngIf="editCompanyName.valid">Input
+            valid
+          </mdb-success>
+        </div>
+
+        <div class="md-form mb-4">
+          <input type="text" id="name" [value]="editComplianceObject['name']" [formControl]="editName" class="form-control"
+            (focusout)="editComplianceObject['name'] = editForm.get('editName').value === '' ? editComplianceObject['name'] : editForm.get('editName').value"          
+            mdbInput mdbValidate>
+          <mdb-error
+            *ngIf="editName.invalid">
+            Input invalid
+          </mdb-error>
+          <mdb-success
+            *ngIf="editName.valid">Input
+            valid
+          </mdb-success>
+        </div>
+
+        <div class="md-form mb-4">
+          <ejs-datepicker style="border: 0px solid white;" [value]="editComplianceObject['dueDate']" [formControl]="editDueDate" class="form-control" id="dueDate" [min]='minDate' [max]='maxDate' format ='yyyy/MM/dd' mdbInput mdbValidate 
+          (focusout)="[checkFormValid(), (editComplianceObject['dueDate'] = editForm.get('editDueDate').value === '' ? editComplianceObject['dueDate'] : editForm.get('editDueDate').value)]"></ejs-datepicker>
+          <mdb-error
+            *ngIf="editDueDate.invalid">
+            Input invalid
+          </mdb-error>
+          <mdb-success
+            *ngIf="editDueDate.valid">Input
+            valid
+          </mdb-success>
+        </div>
+
+        <div class="md-form mb-4">
+          <input type="text" id="act" [value]="editComplianceObject['act']" [formControl]="editAct" class="form-control"
+            (focusout)="editComplianceObject['act'] = editForm.get('editAct').value === '' ? editComplianceObject['act'] : editForm.get('editAct').value"     
+            mdbInput mdbValidate>
+          <mdb-error
+            *ngIf="editAct.invalid">
+            Input invalid
+          </mdb-error>
+          <mdb-success
+            *ngIf="editAct.valid">Input
+            valid
+          </mdb-success>
+        </div>
+
+        <div class="md-form mb-4">
+          <input type="text" id="section" [value]="editComplianceObject['section']" [formControl]="editSection" class="form-control"
+              (focusout)="editComplianceObject['section'] = editForm.get('editSection').value === '' ? editComplianceObject['section'] : editForm.get('editSection').value"
+              mdbInput mdbValidate>
+          <mdb-error
+            *ngIf="editSection.invalid">
+            Input invalid
+          </mdb-error>
+          <mdb-success
+            *ngIf="editSection.valid">Input
+            valid
+          </mdb-success>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button mdbBtn class="waves-light themebackgroundcolor whitefont" [disabled]="disableEditButton" (click)='editCompliance()? editModal.hide() : editModal.show()'  mdbWavesEffect>Edit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div mdbModal #deleteModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close pull-right" aria-label="Close" (click)="deleteModal.hide()">
+            <span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title w-100" id="myModalLabel">Delete Compliance</h4>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete this compliance permanently?
+        </div>
+        <div class="modal-footer">
+          <button type="button" mdbBtn class="waves-light themebackgroundcolor whitefont" aria-label="Close" (click)="deleteModal.hide()" mdbWavesEffect>Close</button>
+          <button type="button" mdbBtn class="relative waves-light themebackgroundcolor whitefont" (click)="[deleteCompliance(), deleteModal.hide()]" mdbWavesEffect>Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div mdbModal #bulkAddModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="bulkAddModal.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">Add Compliance</h4>
+      </div>
+      <div class="modal-body">
+        <input type="file" style="display: inline-block;" (change)="incomingfile($event)" placeholder="Upload file" accept=".xlsx">
+        <button type="button" class="btn btn-info" (click)="Upload()" >Upload</button>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" mdbBtn class="waves-light themebackgroundcolor whitefont" aria-label="Close" (click)="deleteModal.hide()" mdbWavesEffect>Close</button>
+        <button type="button" mdbBtn class="relative waves-light themebackgroundcolor whitefont" (click)="[deleteCompliance(), deleteModal.hide()]" mdbWavesEffect>Delete</button>
+      </div> -->
+    </div>
+  </div>
+</div>
