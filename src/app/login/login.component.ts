@@ -2,6 +2,7 @@ import { Component, HostListener, Inject } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import * as firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/database";
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SESSION_STORAGE, WebStorageService } from 'angular-webstorage-service';
@@ -59,8 +60,11 @@ export class LoginComponent {
     }).finally(() => {
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
-          this.storage.set('user', user);
-          this.router.navigateByUrl(this.returnUrl);
+          firebase.database().ref('/User').child(user.uid).child('type').once('value', type => {
+            this.storage.set('userType', type);
+            this.storage.set('user', user);
+            this.router.navigateByUrl(this.returnUrl);
+          });
         }
       });
     });

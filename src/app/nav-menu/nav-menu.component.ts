@@ -11,13 +11,21 @@ import { SESSION_STORAGE, WebStorageService } from 'angular-webstorage-service';
 })
 export class NavMenuComponent {
   title = 'CCalender';
+  superOrAdmin = true;
 
   constructor(private router:Router, @Inject(SESSION_STORAGE) private storage: WebStorageService) {
+    let userType = this.storage.get('userType');
+    if(userType === 'admin' || userType === 'super'){
+      this.superOrAdmin = true;
+    }else{
+      this.superOrAdmin = false;
+    }
   }
 
   logout(){
     firebase.auth().signOut().then(() => {
       this.storage.remove('user');
+      this.storage.remove('userType');
       this.router.navigate(['/']);
     }).catch(function(error) {
       // An error happened.
