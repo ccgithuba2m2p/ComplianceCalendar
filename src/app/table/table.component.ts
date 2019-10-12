@@ -84,18 +84,24 @@ export class TableComponent implements AfterViewInit{
     this.editComplianceObject = {
       id: "",
       company: "Company Name",
+      department: "Department",
       name: "Compliance Name",
       dueDate: "Due Date",
       act: "Act",
-      section: "Section"
+      section: "Section",
+      formName: "Form Name",
+      frequency: "Frequency"
     };
 
     this.editForm = new FormGroup({
       editCompanyName: new FormControl(this.editComplianceObject['company'], Validators.required),
+      editDepartment : new FormControl(this.editComplianceObject['department'], Validators.required),
       editAct: new FormControl(this.editComplianceObject['act'], Validators.required),
       editSection: new FormControl(this.editComplianceObject['section'], Validators.required),
       editName: new FormControl(this.editComplianceObject['name'], Validators.required),
-      editDueDate: new FormControl(this.editComplianceObject['dueDate'], Validators.required)
+      editDueDate: new FormControl(this.editComplianceObject['dueDate'], Validators.required),
+      editFormName: new FormControl(this.editComplianceObject['formName'], Validators.required),
+      editFrequency: new FormControl(this.editComplianceObject['frequency'], Validators.required)
     });
 
     
@@ -145,6 +151,10 @@ export class TableComponent implements AfterViewInit{
     return this.editForm.get('editCompanyName');
   }
 
+  get editDepartment() {
+    return this.editForm.get('editDepartment');
+  }
+
   get editAct() {
     return this.editForm.get('editAct');
   }
@@ -159,6 +169,14 @@ export class TableComponent implements AfterViewInit{
 
   get editDueDate(){
     return this.editForm.get('editDueDate');
+  }
+
+  get editFormName() {
+    return this.editForm.get('editFormName');
+  }
+
+  get editFrequency() {
+    return this.editForm.get('editFrequency');
   }
 
   searchItems() {
@@ -207,10 +225,13 @@ export class TableComponent implements AfterViewInit{
     this.editComplianceObject = {
       id: compliance['id'],
       company: compliance['company'],
+      department: compliance['department'],
       act: compliance['act'],
       dueDate: compliance['dueDate'],
       section: compliance['section'],
-      name: compliance['name']
+      name: compliance['name'],
+      formName: compliance['formName'],
+      frequency: compliance['frequency']
     };
     console.log(this.editComplianceObject);
   }
@@ -218,12 +239,15 @@ export class TableComponent implements AfterViewInit{
   editCompliance(){
     let updatedCompliance = {
       company : this.editComplianceObject['company'],
+      department : this.editComplianceObject['department'],
       act : this.editComplianceObject['act'],
       section : this.editComplianceObject['section'],
       name : this.editComplianceObject['name'],
-      dueDate : moment(this.editComplianceObject['dueDate'],).format('YYYY/MM/DD')
+      dueDate : moment(this.editComplianceObject['dueDate'],).format('YYYY/MM/DD'),
+      formName : this.editComplianceObject['formName'],
+      frequency : this.editComplianceObject['frequency']
     };
-    firebase.database().ref('/LookUpCompliance').child(this.editComplianceObject['id']).update(updatedCompliance);
+    firebase.database().ref('/ComplianceMaster').child(this.editComplianceObject['id']).update(updatedCompliance);
     this.toast.success("Compliance edited successfully!!!");
     return true;
   }
@@ -233,7 +257,7 @@ export class TableComponent implements AfterViewInit{
   }
 
   deleteCompliance(){
-    firebase.database().ref('/LookUpCompliance').child(this.idForDelete).set(null);
+    firebase.database().ref('/ComplianceMaster').child(this.idForDelete).set(null);
     this.toast.success("Compliance deleted successfully!!!");
     this.idForDelete = '';
   }

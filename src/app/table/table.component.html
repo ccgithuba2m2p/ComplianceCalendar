@@ -33,25 +33,25 @@
             </tr>
             <tbody>
               <tr *ngFor="let compliance of complianceList; let i = index">
-                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" style="max-width: 120px;">
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" class="padding0" style="max-width: 120px;">
                   <span>{{compliance['company']}}</span>
                 </td>
-                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" style="max-width: 100px;">
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" class="padding0" style="max-width: 100px;">
                   <span>{{compliance['department']}}</span>
                 </td>
-                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" style="max-width: 200px;">
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" class="padding0" style="max-width: 200px;">
                   <span>{{compliance['name']}}</span>
                 </td>
-                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" style="max-width: 135px;">
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" class="padding0" style="max-width: 135px;">
                   <span>{{compliance['dueDate']}}</span>
                 </td>
-                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" style="max-width: 120px;">
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" class="padding0" style="max-width: 120px;">
                   <span>{{compliance['act']}}</span>
                 </td>
-                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" style="max-width: 120px;">
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" class="padding0" style="max-width: 120px;">
                   <span>{{compliance['section']}}</span>
                 </td>
-                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" style="max-width: 120px;">
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" class="padding0" style="max-width: 120px;">
                   <span>{{compliance['formName']}}</span>
                 </td>
                 <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
@@ -160,72 +160,63 @@
       </div>
       <div class="modal-body mx-3">
         <div class="md-form mb-4">
-          <input type="text" id="companyName" [value]="editComplianceObject['company']" [formControl]="editCompanyName" class="form-control"
-          (focusout)="editComplianceObject['company'] = editForm.get('editCompanyName').value === '' ? editComplianceObject['company'] : editForm.get('editCompanyName').value"              
-            mdbInput mdbValidate>
-          <mdb-error
-            *ngIf="editCompanyName.invalid">
-            Input invalid
-          </mdb-error>
-          <mdb-success
-            *ngIf="editCompanyName.valid">Input
-            valid
-          </mdb-success>
-        </div>
-
-        <div class="md-form mb-4">
-          <input type="text" id="name" [value]="editComplianceObject['name']" [formControl]="editName" class="form-control"
-            (focusout)="editComplianceObject['name'] = editForm.get('editName').value === '' ? editComplianceObject['name'] : editForm.get('editName').value"          
-            mdbInput mdbValidate>
-          <mdb-error
-            *ngIf="editName.invalid">
-            Input invalid
-          </mdb-error>
-          <mdb-success
-            *ngIf="editName.valid">Input
-            valid
-          </mdb-success>
-        </div>
-
-        <div class="md-form mb-4">
-          <ejs-datepicker style="border: 0px solid white;" [value]="editComplianceObject['dueDate']" [formControl]="editDueDate" class="form-control" id="dueDate" [min]='minDate' [max]='maxDate' format ='yyyy/MM/dd' mdbInput mdbValidate 
-          (focusout)="[checkFormValid(), (editComplianceObject['dueDate'] = editForm.get('editDueDate').value === '' ? editComplianceObject['dueDate'] : editForm.get('editDueDate').value)]"></ejs-datepicker>
-          <mdb-error
-            *ngIf="editDueDate.invalid">
-            Input invalid
-          </mdb-error>
-          <mdb-success
-            *ngIf="editDueDate.valid">Input
-            valid
-          </mdb-success>
-        </div>
-
-        <div class="md-form mb-4">
-          <input type="text" id="act" [value]="editComplianceObject['act']" [formControl]="editAct" class="form-control"
-            (focusout)="editComplianceObject['act'] = editForm.get('editAct').value === '' ? editComplianceObject['act'] : editForm.get('editAct').value"     
-            mdbInput mdbValidate>
-          <mdb-error
-            *ngIf="editAct.invalid">
-            Input invalid
-          </mdb-error>
-          <mdb-success
-            *ngIf="editAct.valid">Input
-            valid
-          </mdb-success>
-        </div>
-
-        <div class="md-form mb-4">
-          <input type="text" id="section" [value]="editComplianceObject['section']" [formControl]="editSection" class="form-control"
-              (focusout)="editComplianceObject['section'] = editForm.get('editSection').value === '' ? editComplianceObject['section'] : editForm.get('editSection').value"
-              mdbInput mdbValidate>
-          <mdb-error
-            *ngIf="editSection.invalid">
-            Input invalid
-          </mdb-error>
-          <mdb-success
-            *ngIf="editSection.valid">Input
-            valid
-          </mdb-success>
+          <table>
+            <tr>
+              <td>
+                <b class="marginleft10">*Company Name: </b><br/>
+                <input type="text" id="companyName" [value]="editComplianceObject['company']" [formControl]="editCompanyName" class="form-control input"
+                (focusout)="editComplianceObject['company'] = editForm.get('editCompanyName').value === '' ? editComplianceObject['company'] : editForm.get('editCompanyName').value"              
+                  mdbInput mdbValidate>
+              </td>
+              <td class="paddingleft20">
+                <b class="marginleft10">*Department: </b> <br/>
+                <input type="text" id="department" [value]="editComplianceObject['department']" [formControl]="editDepartment" class="form-control input"
+                (focusout)="editComplianceObject['department'] = editForm.get('editDepartment').value === '' ? editComplianceObject['department'] : editForm.get('editDepartment').value"              
+                  mdbInput mdbValidate>
+              </td>
+            </tr>
+            <tr>
+              <td class="paddingtop10">
+                <b class="marginleft10">*Compliance Name: </b><br/>
+                <input type="text" id="name" [value]="editComplianceObject['name']" [formControl]="editName" class="form-control input"
+                  (focusout)="editComplianceObject['name'] = editForm.get('editName').value === '' ? editComplianceObject['name'] : editForm.get('editName').value"          
+                  mdbInput mdbValidate>
+              </td>
+              <td class="paddingleft20 paddingtop10">
+                <b class="marginleft10">*Due Date: </b> <br/>
+                <ejs-datepicker style="border: 0px solid white;" [value]="editComplianceObject['dueDate']" [formControl]="editDueDate" class="form-control date" id="dueDate" [min]='minDate' [max]='maxDate' format ='yyyy/MM/dd' mdbInput mdbValidate 
+                  (focusout)="[checkFormValid(), (editComplianceObject['dueDate'] = editForm.get('editDueDate').value === '' ? editComplianceObject['dueDate'] : editForm.get('editDueDate').value)]"></ejs-datepicker>
+              </td>
+            </tr>
+            <tr>
+              <td class="paddingtop10">
+                <b class="marginleft10">*Act: </b><br/>
+                <input type="text" id="act" [value]="editComplianceObject['act']" [formControl]="editAct" class="form-control input"
+                  (focusout)="editComplianceObject['act'] = editForm.get('editAct').value === '' ? editComplianceObject['act'] : editForm.get('editAct').value"     
+                  mdbInput mdbValidate>
+              </td>
+              <td class="paddingleft20 paddingtop10">
+                <b class="marginleft10">*Section: </b> <br/>
+                <input type="text" id="section" [value]="editComplianceObject['section']" [formControl]="editSection" class="form-control input"
+                  (focusout)="editComplianceObject['section'] = editForm.get('editSection').value === '' ? editComplianceObject['section'] : editForm.get('editSection').value"
+                  mdbInput mdbValidate>
+              </td>
+            </tr>
+            <tr>
+              <td class="paddingtop10">
+                <b class="marginleft10">*Form Name: </b><br/>
+                <input type="text" id="formName" [value]="editComplianceObject['formName']" [formControl]="editFormName" class="form-control input"
+                  (focusout)="editComplianceObject['formName'] = editForm.get('editFormName').value === '' ? editComplianceObject['formName'] : editForm.get('editFormName').value"
+                  mdbInput mdbValidate>
+              </td>
+              <td class="paddingleft20 paddingtop10">
+                <b class="marginleft10">*Frequency: </b> <br/>
+                <input type="text" id="frequency" [value]="editComplianceObject['frequency']" [formControl]="editFrequency" class="form-control input"
+                (focusout)="editComplianceObject['frequency'] = editForm.get('editFrequency').value === '' ? editComplianceObject['frequency'] : editForm.get('editFrequency').value"
+                  mdbInput mdbValidate>
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
       <div class="modal-footer d-flex justify-content-center">

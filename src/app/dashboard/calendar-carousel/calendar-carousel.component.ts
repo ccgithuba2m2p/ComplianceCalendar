@@ -64,7 +64,6 @@ export class CalendarCarouselComponent {
   }
 
   nextDatesSmallCalendar(middleDate){
-    debugger;
     this.middleDate = this.middleDate.add(1, 'month');
     let size = this.dates.length;
     for(var i = 0; i < size; ++i){

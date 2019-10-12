@@ -36,7 +36,8 @@ export class DashboardComponent implements OnInit, AfterViewInit{
           section : compliance.section,
           name : compliance.name,
           dueDate : compliance.dueDate,
-          formName : compliance.formName
+          formName : compliance.formName,
+          frequency : compliance.frequency
         });
 
         this.complianceDateList.push(compliance.dueDate);
@@ -51,7 +52,8 @@ export class DashboardComponent implements OnInit, AfterViewInit{
           section : compliance.section,
           name : compliance.name,
           dueDate : compliance.dueDate,
-          formName : compliance.formName
+          formName : compliance.formName,
+          frequency : compliance.frequency
         });
       });
       service.setComplianceList(this.complianceList);
