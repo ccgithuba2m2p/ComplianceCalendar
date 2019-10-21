@@ -5,7 +5,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="paddingleft3 paddingright3 text-center" [ngClass]='{"have-event" : complianceDateList.includes(date.format("YYYY/MM/DD"))}' placement="down" [mdbPopover] = "popTemplate" triggers = 'hover'>
+        <div class="paddingleft3 paddingright3 text-center" [ngClass]='{"have-event" : complianceDateList.includes(date.format("YYYY/MM/DD"))}' placement="down" [mdbPopover] = 'complianceDateList.includes(date.format("YYYY/MM/DD")) ? popTemplate : none' triggers = 'hover'>
             {{date.date()}}
         </div>
     </div>

@@ -1,0 +1,65 @@
+.sidemenu-title{
+    font-size: 16px;
+    color: black;
+    font-weight: bold;
+}
+
+.sidemenu{
+    height : 100vh !important;
+    width : 100% !important;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    padding-top: 15px;
+}
+
+.selected{
+    border-left: 3px solid rgb(29, 128, 9);
+    font-weight: bold;
+}
+
+span{
+    padding: 10px;
+    width: 100% !important;
+}
+
+.spanhover{
+    cursor: pointer;
+}
+
+.title{
+    font-size: 25px;
+    font-weight: bold;
+    padding-left: 30px;
+    padding-top: 15px;
+}
+
+.searchbox{
+    background-color: white !important;
+    width: 200px;
+    padding-left: 10px;
+    border: 1px solid lightgray !important; 
+    float: right;
+}
+
+.user-card{
+    height: auto;
+    width: 400px;
+    background-color: rgba(0,0,0,0.03);
+    margin: 30px;
+}
+
+.input {
+    background-color: white !important;
+    width: 100%;
+    height: 33px;
+    padding-left: 10px;
+    border: 1px solid lightgray !important;
+}
+
+.add-user-card{
+    width: 500px;
+    height : auto;
+    margin-left: 25%;
+    padding: 20px;
+    background-color: rgba(0,0,0,0.03);
+}

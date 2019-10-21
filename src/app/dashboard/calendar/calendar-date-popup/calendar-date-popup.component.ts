@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import * as moment from 'moment';
+import { DashboardService } from '../../dashboard.service';
 
 @Component({
   selector: 'app-calendar-date-popup',
@@ -7,8 +8,15 @@ import * as moment from 'moment';
   styleUrls: ['./calendar-date-popup.component.scss']
 })
 export class CalendarDatePopupComponent {
-    @Input() date :  moment.Moment = moment();
+  @Input() date :  moment.Moment = moment();
 
-    constructor(){
-    }
+  complianceList = [];
+
+  constructor(private dashboardService : DashboardService){}
+
+  ngOnInit(){
+    this.dashboardService.complianceDateMapper.subscribe(mapper => {
+      this.complianceList = mapper[this.date.format('YYYY/MM/DD')];
+    });
+  }
 }

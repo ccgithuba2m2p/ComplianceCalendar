@@ -1,4 +1,4 @@
-import { Component, ViewChild, HostListener, ChangeDetectorRef, AfterViewInit, Input } from '@angular/core';
+import { Component, ViewChild, HostListener, ChangeDetectorRef, AfterViewInit, Input, Inject } from '@angular/core';
 import { MdbTableDirective, MdbTablePaginationComponent } from 'angular-bootstrap-md';
 import * as firebase from "firebase/app";
 import "firebase/database";
@@ -8,6 +8,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import * as XLSX from 'xlsx';
 import { DashboardService } from '../dashboard/dashboard.service';
+import { SESSION_STORAGE, WebStorageService } from 'angular-webstorage-service';
 
 @Component({
   selector: 'app-table',
@@ -36,9 +37,19 @@ export class TableComponent implements AfterViewInit{
   arrayBuffer:any;
   file:File;
   complianceList = [];
+  complianceMasterList = [];
+  companyName : string = '';
+  departmentName : string = '';
+  companyId : string ='';
+  departmentId : string = '';
   
 
-  constructor(private toast: ToastrService, private cdRef: ChangeDetectorRef, private dashboardService : DashboardService) { }
+  constructor(private toast: ToastrService, private cdRef: ChangeDetectorRef, private dashboardService : DashboardService, @Inject(SESSION_STORAGE) private storage: WebStorageService) { 
+    this.companyName = storage.get('company');
+    this.departmentName = storage.get('department');
+    this.companyId = storage.get('companyId');
+    this.departmentId = storage.get('departmentId');
+  }
 
   @HostListener('input') oninput() {
     this.searchItems();
@@ -58,10 +69,7 @@ export class TableComponent implements AfterViewInit{
 
   ngOnInit() {
     this.dashboardService.complianceList.subscribe(list => {
-      let size = this.complianceList.length;
-      for(let i = 0; i < size; ++i){
-        this.complianceList.pop();
-      }
+      this.complianceList = [];
       list.forEach(compliance => {
         this.complianceList.push(compliance);
       });
@@ -69,22 +77,35 @@ export class TableComponent implements AfterViewInit{
       this.complianceList = this.mdbTable.getDataSource();
       this.previous = this.mdbTable.getDataSource();
     });
+
+    this.dashboardService.complianceMasterList.subscribe(list => {
+      this.complianceMasterList = [];
+      list.forEach(compliance => {
+        this.complianceMasterList.push(compliance);
+      });
+    });
     
     this.addNewForm = new FormGroup({
-      addNewCompanyName: new FormControl('', Validators.required),
-      addNewDepartment: new FormControl('', Validators.required),
+      addNewCompanyName: new FormControl(this.companyName, Validators.required),
+      addNewDepartment: new FormControl(this.departmentName, Validators.required),
       addNewAct: new FormControl('', Validators.required),
       addNewSection: new FormControl('', Validators.required),
-      addNewName: new FormControl('', Validators.required),
+      addNewComplainceList: new FormControl('', Validators.required),
       addNewDueDate: new FormControl('', Validators.required),
       addNewFormName: new FormControl('', Validators.required),
       addNewFrequency: new FormControl('', Validators.required)
     });
 
+    this.addNewForm.controls['addNewCompanyName'].disable();
+    this.addNewForm.controls['addNewDepartment'].disable();
+    this.addNewForm.controls['addNewAct'].disable();
+    this.addNewForm.controls['addNewSection'].disable();
+    this.addNewForm.controls['addNewFormName'].disable();
+
     this.editComplianceObject = {
       id: "",
-      company: "Company Name",
-      department: "Department",
+      company: this.companyName,
+      department: this.departmentName,
       name: "Compliance Name",
       dueDate: "Due Date",
       act: "Act",
@@ -104,6 +125,11 @@ export class TableComponent implements AfterViewInit{
       editFrequency: new FormControl(this.editComplianceObject['frequency'], Validators.required)
     });
 
+    this.editForm.controls['editCompanyName'].disable();
+    this.editForm.controls['editDepartment'].disable();
+    this.editForm.controls['editAct'].disable();
+    this.editForm.controls['editSection'].disable();
+    this.editForm.controls['editFormName'].disable();
     
   }
 
@@ -131,8 +157,8 @@ export class TableComponent implements AfterViewInit{
     return this.addNewForm.get('addNewSection');
   }
 
-  get addNewName(){
-    return this.addNewForm.get('addNewName');
+  get addNewComplainceList(){
+    return this.addNewForm.get('addNewComplainceList');
   }
 
   get addNewDueDate(){
@@ -195,16 +221,15 @@ export class TableComponent implements AfterViewInit{
 
   addNewCompliance(){
     var newCompliance = {
-      company : this.addNewForm.get('addNewCompanyName').value,
-      department : this.addNewForm.get('addNewDepartment').value,
-      act : this.addNewForm.get('addNewAct').value,
-      section : this.addNewForm.get('addNewSection').value,
-      name : this.addNewForm.get('addNewName').value,
+      compliance : this.addNewForm.get('addNewComplainceList').value,
       dueDate : moment(this.addNewForm.get('addNewDueDate').value).format('YYYY/MM/DD'),
-      formName : this.addNewForm.get('addNewFormName').value,
       frequency : this.addNewForm.get('addNewFrequency').value
     };
-    firebase.database().ref('/ComplianceMaster').push(newCompliance);
+    let complianceRef = firebase.database().ref('/ComplianceMain').child(this.companyId).child(this.departmentId).push(newCompliance);
+    let newComplianceFrequencyMaster = {
+      nextEmailDate : moment(this.addNewForm.get('addNewDueDate').value).subtract(1, 'month').format('YYYY/MM/DD')
+    }
+    firebase.database().ref('/FrequencyMaster').child(complianceRef.key).set(newComplianceFrequencyMaster);
     this.toast.success("New Compliance added successfully!!!");
   }
 
@@ -233,21 +258,20 @@ export class TableComponent implements AfterViewInit{
       formName: compliance['formName'],
       frequency: compliance['frequency']
     };
-    console.log(this.editComplianceObject);
   }
 
   editCompliance(){
     let updatedCompliance = {
-      company : this.editComplianceObject['company'],
-      department : this.editComplianceObject['department'],
-      act : this.editComplianceObject['act'],
-      section : this.editComplianceObject['section'],
-      name : this.editComplianceObject['name'],
-      dueDate : moment(this.editComplianceObject['dueDate'],).format('YYYY/MM/DD'),
-      formName : this.editComplianceObject['formName'],
+      compliance : this.editComplianceObject['name'],
+      dueDate : moment(this.editComplianceObject['dueDate']).format('YYYY/MM/DD'),
       frequency : this.editComplianceObject['frequency']
     };
-    firebase.database().ref('/ComplianceMaster').child(this.editComplianceObject['id']).update(updatedCompliance);
+
+    let updateFrequencyMaster = {
+      nextEmailDate : moment(this.editComplianceObject['dueDate']).subtract(1, 'month').format('YYYY/MM/DD')
+    };
+    firebase.database().ref('/ComplianceMain').child(this.companyId).child(this.departmentId).child(this.editComplianceObject['id']).update(updatedCompliance);
+    firebase.database().ref('/FrequencyMaster').child(this.editComplianceObject['id']).update(updateFrequencyMaster);
     this.toast.success("Compliance edited successfully!!!");
     return true;
   }
@@ -301,5 +325,29 @@ export class TableComponent implements AfterViewInit{
         this.toast.success("All Compliance added successfully!!!");
     }
     fileReader.readAsArrayBuffer(this.file);
+  }
+
+  updateAddNewFormFields(){
+    let id = this.addNewForm.get('addNewComplainceList').value;
+    let compliances = this.complianceMasterList.filter(c => c.id === id);
+
+    if(compliances.length > 0){
+      let compliance = compliances[0];
+      this.addNewForm.controls['addNewAct'].setValue(compliance['act']);
+      this.addNewForm.controls['addNewSection'].setValue(compliance['section']);
+      this.addNewForm.controls['addNewFormName'].setValue(compliance['formName']);
+    }  
+  }
+
+  updateEditFormFields(){
+    let id = this.editForm.get('editName').value;
+    let compliances = this.complianceMasterList.filter(c => c.id === id);
+
+    if(compliances.length > 0){
+      let compliance = compliances[0];
+      this.editForm.controls['editAct'].setValue(compliance['act']);
+      this.editForm.controls['editSection'].setValue(compliance['section']);
+      this.editForm.controls['editFormName'].setValue(compliance['formName']);
+    }  
   }
 }

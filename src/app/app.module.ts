@@ -21,6 +21,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AuthGuard } from './authguard.service';
 import { StorageServiceModule} from 'angular-webstorage-service';
 import { GoogleChartsModule } from 'angular-google-charts';
+import { ManageUsersComponent } from './manage-users/manage-users.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { GoogleChartsModule } from 'angular-google-charts';
     CalendarDatePopupComponent,
     CalendarDateComponent,
     PieChartComponent,
-    TableComponent
+    TableComponent,
+    ManageUsersComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +52,7 @@ import { GoogleChartsModule } from 'angular-google-charts';
     RouterModule.forRoot([
       { path: '', component: LoginComponent, pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+      { path: 'ManageUsers', component: ManageUsersComponent, canActivate: [AuthGuard]}
     ])
   ],
   providers: [AuthGuard],

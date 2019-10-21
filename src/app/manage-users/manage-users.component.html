@@ -1,0 +1,115 @@
+<app-nav-menu></app-nav-menu>
+<table class="width100p">
+    <tr>
+        <td class="width16p paddingleft0">
+            <mdb-card style="background-color: rgba(0,0,0,0.03);">
+                <table>
+                    <tr>
+                        <td class="width10p">
+                        </td>
+                        <td>
+                            <div class="sidemenu">
+                                <div class="sidemenu-title text-center">
+                                    <span>Manage Users</span>
+                                </div>
+                                <hr/>
+                                <span class="spanhover" [ngClass]="{'selected': browseUsers}" (click)="activateBrowseUsers()">Browse Users</span>
+                                <br/>
+                                <br/>
+                                <span class="spanhover" [ngClass]="{'selected': addUser}" (click)="activateAddUser()">Add user</span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </mdb-card>
+        </td>
+        <td class="width84p">
+            <table class="width100p">
+                <tr class="width100p">
+                    <td class="width100p">
+                        <div *ngIf='browseUsers' class="width100p height100vh">
+                            <div class="title">
+                                <span>Browse Users</span>
+                            </div>
+                            <hr/>
+                            <div>
+                                <input type="text" [(ngModel)]="searchText" placeholder ="Search" class="form-control searchbox" id="search" mdbInput>
+                                <br/>
+                                <div style="border: 1px solid rgba(0, 0, 0, 0.1); margin: 20px;">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col" *ngFor='let user of userList;  let i = index'>
+                                                <mdb-card class="user-card">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col-12 col-md-auto">
+                                                                <img src="..//..//assets/images/defaultuser.jpg" alt="" class="img-fluid rounded-circle z-depth-0" style="height : 100px !important;" >
+                                                            </div>
+                                                            <div class="col">
+                                                                <span style="font-size: 16px; font-weight: bold;">{{user.name}}</span>
+                                                                <br/>
+                                                                <span>Role: {{user.type}}</span>
+                                                                <br/>
+                                                                <span>Email: {{user.email}}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </mdb-card>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf='addUser' class="width100p height100vh">
+                            <div class="title">
+                                <span>Add User</span>
+                            </div>
+                            <hr/>
+                            <div>
+                                <mdb-card class="add-user-card">
+                                    <span class="text-center" style="font-weight: bold">User Details</span>
+                                    <hr/>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col">
+                                                <span>Name:</span>
+                                                <input type="text" id="userName" [formControl]="addUserName" class="form-control input"
+                                                    mdbInput mdbValidate>
+                                            </div>
+                                        </div>
+                                        <div class="row margintop20">
+                                            <div class="col">
+                                                <span>Email:</span>
+                                                <input type="email" id="userEmail" [formControl]="addUserEmail" class="form-control input"
+                                                    mdbInput mdbValidate>
+                                            </div>
+                                        </div>
+                                        <div class="row margintop20">
+                                            <div class="col">
+                                                <span>Department:</span>
+                                                <input type="text" id="userDepartment" [formControl]="addUserDepartment" class="form-control input"
+                                                    mdbInput mdbValidate>
+                                            </div>
+                                        </div>
+                                        <div class="row margintop20">
+                                            <div class="col">
+                                                <span>Role:</span>
+                                                <input type="text" id="userRole" [formControl]="addUserRole" class="form-control input"
+                                                    mdbInput mdbValidate>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mdb-card>
+
+                                <div class="margintop20 d-flex justify-content-center">
+                                    <button mdbBtn class="waves-light themebackgroundcolor whitefont" [disabled]="!validForm" (click)='addNewUser()'  mdbWavesEffect>ADD</button>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

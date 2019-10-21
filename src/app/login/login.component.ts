@@ -60,10 +60,18 @@ export class LoginComponent {
     }).finally(() => {
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
-          firebase.database().ref('/User').child(user.uid).child('type').once('value', type => {
-            this.storage.set('userType', type);
-            this.storage.set('user', user);
-            this.router.navigateByUrl(this.returnUrl);
+          firebase.database().ref('/User').child(user.uid).once('value', u => {
+            firebase.database().ref('/Company').child(u.val().company).once('value', c => {
+              firebase.database().ref('/Department').child(u.val().company).child(u.val().department).once('value', d=>{
+                this.storage.set('userType', u.val().type);
+                this.storage.set('companyId', u.val().company);
+                this.storage.set('departmentId', u.val().department);
+                this.storage.set('company', c.val());
+                this.storage.set('department', d.val());
+                this.storage.set('user', user);
+                this.router.navigateByUrl(this.returnUrl);
+              });
+            });
           });
         }
       });

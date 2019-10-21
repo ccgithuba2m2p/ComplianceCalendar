@@ -115,7 +115,19 @@
 }
 
 .height100p{
-    height: 100%;
+    height: 100% !important;
+}
+
+.height100vh{
+    height: 100vh !important;
+}
+
+.width16p{
+    width : 16% !important;
+}
+
+.width84p{
+    width : 84% !important;
 }
 
 .width15{
@@ -136,6 +148,10 @@
 
 .width25{
     width : 25px;
+}
+
+.width10p{
+    width : 10%;
 }
 
 .paddingtop8{
@@ -165,6 +181,14 @@
 
 .paddingleft10{
     padding-left: 10px;
+}
+
+.paddingleft0{
+    padding-left: 0px;
+}
+
+.paddingleft32{
+    padding-left: 32px;
 }
 
 .paddingleft20{

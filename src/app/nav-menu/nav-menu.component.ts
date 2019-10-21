@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as firebase from "firebase/app";
 import "firebase/auth";
@@ -9,11 +9,16 @@ import { SESSION_STORAGE, WebStorageService } from 'angular-webstorage-service';
   templateUrl: './nav-menu.component.html',
   styleUrls: ['./nav-menu.component.scss']
 })
-export class NavMenuComponent {
+export class NavMenuComponent implements AfterViewInit{
+  
   title = 'CCalender';
   superOrAdmin = true;
 
   constructor(private router:Router, @Inject(SESSION_STORAGE) private storage: WebStorageService) {
+    
+  }
+
+  ngAfterViewInit(): void {
     let userType = this.storage.get('userType');
     if(userType === 'admin' || userType === 'super'){
       this.superOrAdmin = true;

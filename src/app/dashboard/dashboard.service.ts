@@ -15,6 +15,9 @@ export class DashboardService{
   private complianceListSource = new BehaviorSubject<any>([]);
   complianceList = this.complianceListSource.asObservable();
 
+  private complianceMasterListSource = new BehaviorSubject<any>([]);
+  complianceMasterList = this.complianceMasterListSource.asObservable();
+
   private complianceDateListSource = new BehaviorSubject<any>([]);
   complianceDateList = this.complianceDateListSource.asObservable();
 
@@ -25,6 +28,10 @@ export class DashboardService{
 
   setComplianceList(complianceList : any){
       this.complianceListSource.next(complianceList);
+  }
+
+  setComplianceMasterList(complianceMasterList : any){
+    this.complianceMasterListSource.next(complianceMasterList);
   }
 
   setComplianceDateList(complianceDateList : any){
